@@ -13,9 +13,9 @@ def generate_short_key(url: str, length: int = 8) -> str:
 
     return short_key
 
-# Example usage:
-url = "https://www.example.com/some/path"
-short_key = generate_short_key(url, 8)
-print(f"Short Key: {short_key}")
+# # Example usage:
+# url = "https://www.example.com/some/path"
+# short_key = generate_short_key(url, 8)
+# print(f"Short Key: {short_key}")
 
 

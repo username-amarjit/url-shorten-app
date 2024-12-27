@@ -4,22 +4,27 @@
    - Choose programming language and framework (e.g., Node.js with Express, Python with Flask, or Django).
    - Initialize a new project using your chosen framework.
    - Set up the basic folder structure (e.g., `src`, `controllers`, `models`, `routes`).
+> ALL DONE
 
 ## 2. **Install Dependencies**
    - Install necessary dependencies for your chosen framework (e.g., `express`, `flask`, `django`).
    - Install libraries for URL handling and redirection (e.g., `uuid` for generating short URLs, or `hashids`).
    - Install libraries for database interaction (e.g., `mongoose` for MongoDB, `sequelize` for SQL databases).
+> ALL DONE
 
 ## 3. **Database Setup**
    - Set up a database (e.g., MongoDB, PostgreSQL, MySQL).
    - Design the schema for URLs:
      - **URL Table**: `id`, `long_url`, `short_url`, `created_at`, `user` , `expiry`
+> ALL DONE
 
 ## 4. **Generate Short URL**
    - Implement the logic to generate a short URL for a given long URL.
      - Use a unique identifier (e.g., `UUID`, a base62 encoding of a hash, or a custom algorithm like `hashids`).
      - Ensure the short URL is unique.
-   
+> ALL DONE
+
+
 ## 5. **Create API Endpoint for URL Shortening**
    - Implement a POST route to accept a long URL and return the corresponding shortened URL.
      - Example input: `{"long_url": "http://example.com"}`.

@@ -1,3 +1,4 @@
+import json
 import traceback
 import logging
 from django.http.response import JsonResponse
@@ -15,14 +16,19 @@ import logging
 
 log = logging.getLogger(__name__)
 
+# @permission_classes((IsAuthenticated,))
 @csrf_exempt
-@permission_classes((IsAuthenticated,))
 @api_view(['POST','GET','PATCH','DELETE'])
 def urlShortnerView(request):
     response_msg = ""    
     response_code = ""
     
+    user = request.user
     if request.method == 'GET':
         pass
     elif request.method == 'POST':
+        data = json.loads(request.body)
+        srv = URLSrv(user,data)
+        data,msg,code = srv.create_record()
         
+        return JsonResponse({"data":data,"response_msg":msg,"response_code":code})

@@ -10,7 +10,7 @@ class URLSrv:
         self.user = user
         self.data = data
     
-    def get_short_key(self,long_url):
+    def get_short_key(self):
         custom_alias = self.data.get('custom_alias',None)
         long_url = self.data.get('long_url',None)
         if custom_alias is not None:
@@ -18,24 +18,24 @@ class URLSrv:
             if len(url_obj)>0:
                 return "alias already taken","S_01"
             else:
-                self.data['short_url'] = custom_alias
+                self.data['short_url_key'] = custom_alias
                 return "short url created","1"
         elif long_url is not None:
             short_key = generate_short_key(long_url)
             url_obj = URL.objects.filter(short_url_key=short_key)
             if len(url_obj)>0:
-                long_url += self.user.id
+                long_url += "/"+str(self.user.id)
                 short_key = generate_short_key(long_url)
                 url_obj = URL.objects.filter(short_url_key=short_key)
                 if len(url_obj)>0:
                     return "cannot cerate short, use custom alias, or give unique key","S_02"
                 #TODO: add case of custom unique key
                 else:
-                    self.data['short_url'] = short_key
+                    self.data['short_url_key'] = short_key
                     self.data['long_url'] = long_url
                     return "short url created","1"
             else:
-                self.data['short_url'] = short_key
+                self.data['short_url_key'] = short_key
                 return "short url created","1"
         else:
             return "long url is required","S_03"
