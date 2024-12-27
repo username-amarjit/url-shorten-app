@@ -32,12 +32,17 @@
    
 ## 6. **Store Long and Short URLs in the Database**
    - When a new URL is shortened, save both the long and short URLs in the database.
+> Done
    - Ensure data integrity and handle possible edge cases (e.g., duplicate URLs, expired URLs, etc.).
+
 
 ## 7. **Create Catch-All Route for Redirection**
    - Implement a wildcard route to handle all incoming requests for short URLs (e.g., `http://short.ly/{short_code}`).
+> Done
    - Look up the corresponding long URL in the database based on the short URL code.
+> Done
    - Redirect the user to the long URL.
+> Done
 
 ## 8. **URL Validation and Error Handling**
    - Validate the long URL to ensure it's well-formed (e.g., using regex or a library).

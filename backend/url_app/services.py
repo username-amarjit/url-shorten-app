@@ -22,21 +22,21 @@ class URLSrv:
                 return "short url created","1"
         elif long_url is not None:
             short_key = generate_short_key(long_url)
-            url_obj = URL.objects.filter(short_url_key=short_key)
-            if len(url_obj)>0:
-                long_url += "/"+str(self.user.id)
-                short_key = generate_short_key(long_url)
-                url_obj = URL.objects.filter(short_url_key=short_key)
-                if len(url_obj)>0:
-                    return "cannot cerate short, use custom alias, or give unique key","S_02"
-                #TODO: add case of custom unique key
-                else:
-                    self.data['short_url_key'] = short_key
-                    self.data['long_url'] = long_url
-                    return "short url created","1"
-            else:
-                self.data['short_url_key'] = short_key
-                return "short url created","1"
+            # url_obj = URL.objects.filter(short_url_key=short_key)
+            # if len(url_obj)>0:
+            #     long_url += "/"+str(self.user.id)
+            #     short_key = generate_short_key(long_url)
+            #     url_obj = URL.objects.filter(short_url_key=short_key)
+            #     if len(url_obj)>0:
+            #         return "cannot cerate short, use custom alias, or give unique key","S_02"
+            #     #TODO: add case of custom unique key
+            #     else:
+            #         self.data['short_url_key'] = short_key
+            #         self.data['long_url'] = long_url
+            #         return "short url created","1"
+            # else:
+            self.data['short_url_key'] = short_key
+            return "short url created","1"
         else:
             return "long url is required","S_03"
             
@@ -60,12 +60,12 @@ class URLSrv:
             print(traceback.format_exc())        
             return str(ex),"Error while creating a task record.","S_02"
     
-    def get_all_records(self,status):
+    def get_all_records(self,):
         try:
             all_task_queryset = URL.objects.filter(user_id=self.user.id)
-            if status is not None and status != "all":
-                status_val = status == 'completed'
-                all_task_queryset = all_task_queryset.filter(is_completed=status_val)
+            # if status is not None and status != "all":
+                # status_val = status == 'completed'
+                # all_task_queryset = all_task_queryset.filter(is_completed=status_val)
             url_serializer = URLSerializer(all_task_queryset,many=True)
             return url_serializer.data,"All Records fetched SuccessFully.","1"
         except Exception as ex:
@@ -111,3 +111,8 @@ class URLSrv:
         except Exception as ex:
             print(traceback.format_exc())        
             return str(ex),"Error while deleting a task record.","S_10"
+        
+    def redirect_to_url(self,short_url_key):
+        url_obj = URL.objects.filter(short_url_key=short_url_key)
+        return url_obj.first().long_url if url_obj.exists() else None
+        
